@@ -134,7 +134,7 @@ export const Header: React.FC<HeaderProps> = ({
                 const kitName = t.kits[kit.id]?.name || kit.name;
                 return (
                   <option key={kit.id} value={kit.id}>
-                    Kit: {kitName}
+                    {kitName}
                   </option>
                 );
               })}

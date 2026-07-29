@@ -187,13 +187,14 @@ export const Header: React.FC<HeaderProps> = ({
             />
           </div>
 
-          {/* WAV Export Button */}
+          {/* Export Button */}
           <button
             onClick={onOpenExportModal}
+            title="Beat als WAV-Audio oder JSON-Projekt exportieren"
             className="px-4 py-2 bg-transparent border-2 border-[#66FCF1] hover:bg-[#66FCF1] hover:text-[#0B0C10] text-[#66FCF1] font-bold rounded uppercase tracking-[0.15em] text-xs transition-colors flex items-center gap-2 cursor-pointer shadow-[0_0_12px_rgba(102,252,241,0.25)] active:scale-95"
           >
             <Download className="w-4 h-4 stroke-[2.5]" />
-            <span>Export WAV</span>
+            <span>EXPORT</span>
           </button>
         </div>
       </div>

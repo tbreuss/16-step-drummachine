@@ -196,7 +196,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center gap-1">
             <button
               onClick={onSaveJSON}
-              title="JSON"
+              title={t.jsonSaveTitle}
               className="p-2 bg-[#1F2833] hover:bg-[#45A29E]/20 text-[#C5C6C7] hover:text-[#66FCF1] rounded border border-[#45A29E]/20 transition flex items-center gap-1.5 text-xs font-medium cursor-pointer"
             >
               <Save className="w-4 h-4 text-[#66FCF1]" />
@@ -205,7 +205,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => fileInputRef.current?.click()}
-              title="Open JSON"
+              title={t.jsonOpenTitle}
               className="p-2 bg-[#1F2833] hover:bg-[#45A29E]/20 text-[#C5C6C7] hover:text-[#66FCF1] rounded border border-[#45A29E]/20 transition flex items-center gap-1.5 text-xs font-medium cursor-pointer"
             >
               <FolderOpen className="w-4 h-4 text-[#45A29E]" />

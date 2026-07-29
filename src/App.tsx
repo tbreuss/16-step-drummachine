@@ -9,6 +9,7 @@ import { BEAT_PRESETS, DEFAULT_TRACKS } from './data/presets';
 import { BeatPreset, DrumKitId, DrumSoundId, DrumTrack } from './types';
 import { Music, Play, HelpCircle, Keyboard } from 'lucide-react';
 import { useLanguage } from './i18n/LanguageContext';
+import { downloadFile } from './utils/wavEncoder';
 
 export default function App() {
   const { t } = useLanguage();
@@ -19,7 +20,7 @@ export default function App() {
   const [currentKit, setCurrentKit] = useState<DrumKitId>('classic808');
   const [tracks, setTracks] = useState<DrumTrack[]>(DEFAULT_TRACKS);
   const [currentStep, setCurrentStep] = useState(0);
-  const [beatName, setBeatName] = useState('Mein Beat 01');
+  const [beatName, setBeatName] = useState(t.defaultBeatName);
 
   // Modals
   const [settingsTrack, setSettingsTrack] = useState<DrumTrack | null>(null);
@@ -131,7 +132,7 @@ export default function App() {
 
   // Clear Pattern
   const handleClearPattern = () => {
-    setBeatName('Neuer Beat');
+    setBeatName(t.newBeatName);
     setTracks((prev) =>
       prev.map((t) => ({
         ...t,
@@ -158,9 +159,34 @@ export default function App() {
     );
   };
 
-  // Save / Load JSON
+  // Direct 1-click JSON Download
   const handleSaveJSON = () => {
-    setIsExportModalOpen(true);
+    const tracksData: Record<string, boolean[]> = {};
+    const velocitiesData: Record<string, number[]> = {};
+
+    tracks.forEach((track) => {
+      tracksData[track.id] = track.steps;
+      velocitiesData[track.id] = track.velocities;
+    });
+
+    const jsonContent = JSON.stringify(
+      {
+        version: '1.0',
+        name: beatName.trim() || t.defaultBeatName,
+        bpm,
+        swing,
+        kit: currentKit,
+        tracks: tracksData,
+        velocities: velocitiesData,
+      },
+      null,
+      2
+    );
+
+    const cleanName = (beatName.trim() || t.defaultBeatName).replace(/[^a-zA-Z0-9_\-]/g, '_');
+    const filename = `${cleanName}_${bpm}BPM.json`;
+    const blob = new Blob([jsonContent], { type: 'application/json' });
+    downloadFile(blob, filename);
   };
 
   const handleImportJSON = (jsonString: string) => {
@@ -185,7 +211,7 @@ export default function App() {
         );
       }
     } catch (err) {
-      alert('Ungültiges JSON-Projektformat!');
+      alert(t.invalidJson);
     }
   };
 

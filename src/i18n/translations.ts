@@ -12,7 +12,9 @@ export const translations = {
     randomPattern: 'Zufall',
     clearPattern: 'Leeren',
     exportButton: 'EXPORT',
-    exportTitle: 'Beat als WAV-Audio oder JSON-Projekt exportieren',
+    exportTitle: 'Studio Export: WAV Audio Loop rendern & herunterladen',
+    jsonSaveTitle: 'Pattern direkt als JSON-Datei speichern (1-Klick Quick-Save)',
+    jsonOpenTitle: 'Pattern aus JSON-Datei importieren',
     defaultBeatName: 'Mein Beat 01',
     newBeatName: 'Neuer Beat',
 
@@ -149,7 +151,9 @@ export const translations = {
     randomPattern: 'Random',
     clearPattern: 'Clear',
     exportButton: 'EXPORT',
-    exportTitle: 'Export beat as WAV audio or JSON project',
+    exportTitle: 'Studio Export: Render & download WAV audio loop',
+    jsonSaveTitle: 'Directly download pattern as JSON file (1-click Quick-Save)',
+    jsonOpenTitle: 'Import pattern from JSON file',
     defaultBeatName: 'My Beat 01',
     newBeatName: 'New Beat',
 

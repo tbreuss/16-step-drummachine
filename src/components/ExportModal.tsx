@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Check,
   Copy,
@@ -24,6 +24,7 @@ interface ExportModalProps {
   currentKit: DrumKitId;
   beatName: string;
   onBeatNameChange: (name: string) => void;
+  initialTab?: 'wav' | 'json';
 }
 
 export const ExportModal: React.FC<ExportModalProps> = ({
@@ -35,9 +36,16 @@ export const ExportModal: React.FC<ExportModalProps> = ({
   currentKit,
   beatName,
   onBeatNameChange,
+  initialTab = 'wav',
 }) => {
   const { t } = useLanguage();
-  const [activeTab, setActiveTab] = useState<'wav' | 'json'>('wav');
+  const [activeTab, setActiveTab] = useState<'wav' | 'json'>(initialTab);
+
+  useEffect(() => {
+    if (isOpen && initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [isOpen, initialTab]);
   const [bars, setBars] = useState<number>(2); // Default 2 bars
   const [isRendering, setIsRendering] = useState<boolean>(false);
   const [copiedJson, setCopiedJson] = useState<boolean>(false);
@@ -45,7 +53,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
   if (!isOpen) return null;
 
   const getSanitizedFileName = (ext: string) => {
-    const cleanName = (beatName.trim() || 'Mein_Beat').replace(/[^a-zA-Z0-9_\-]/g, '_');
+    const cleanName = (beatName.trim() || t.defaultBeatName).replace(/[^a-zA-Z0-9_\-]/g, '_');
     return `${cleanName}_${bpm}BPM.${ext}`;
   };
 
@@ -80,7 +88,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
     return JSON.stringify(
       {
         version: '1.0',
-        name: beatName.trim() || 'Mein Beat',
+        name: beatName.trim() || t.defaultBeatName,
         bpm,
         swing,
         kit: currentKit,

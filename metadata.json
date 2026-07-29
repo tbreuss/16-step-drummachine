@@ -1,0 +1,6 @@
+{
+  "name": "16-Step Drummachine",
+  "description": "Eine intuitive 16-Step Drummachine mit vielfältigen Drum-Samples, Presets und WAV-Beat-Export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Pause, Play, RotateCcw, Volume2, VolumeX } from 'lucide-react';
 import { Visualizer } from './Visualizer';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface TransportBarProps {
   isPlaying: boolean;
@@ -25,6 +26,7 @@ export const TransportBar: React.FC<TransportBarProps> = ({
   onMasterVolumeChange,
   currentStep,
 }) => {
+  const { t } = useLanguage();
   const [isMuted, setIsMuted] = useState(false);
   const previousVolRef = useRef(masterVolume);
 
@@ -81,7 +83,7 @@ export const TransportBar: React.FC<TransportBarProps> = ({
                 ? 'bg-[#66FCF1] text-[#0B0C10] shadow-[0_0_20px_rgba(102,252,241,0.6)] animate-pulse'
                 : 'bg-[#1F2833] text-[#66FCF1] border border-[#66FCF1]/40 hover:bg-[#45A29E]/20 shadow-[0_0_12px_rgba(102,252,241,0.2)]'
             }`}
-            title={isPlaying ? 'Stoppen (Leertaste)' : 'Abspielen (Leertaste)'}
+            title={isPlaying ? t.stopSpace : t.playSpace}
           >
             {isPlaying ? (
               <Pause className="w-7 h-7 fill-[#0B0C10] stroke-none" />
@@ -94,13 +96,13 @@ export const TransportBar: React.FC<TransportBarProps> = ({
           <div className="flex flex-col gap-1">
             <div className="flex items-center justify-between gap-2">
               <span className="text-[10px] font-bold text-[#45A29E] uppercase tracking-[0.2em]">
-                TEMPO (BPM)
+                {t.tempoBpm}
               </span>
               <button
                 onClick={handleTapTempo}
                 className="text-[10px] font-mono font-bold bg-[#1F2833] hover:bg-[#66FCF1] text-[#66FCF1] hover:text-[#0B0C10] border border-[#66FCF1]/30 px-2 py-0.5 rounded cursor-pointer transition active:scale-95"
               >
-                TAP TEMPO
+                {t.tapTempo}
               </button>
             </div>
 
@@ -154,7 +156,7 @@ export const TransportBar: React.FC<TransportBarProps> = ({
           <div className="flex flex-col gap-1.5 w-36">
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-[#45A29E] text-[10px] uppercase tracking-[0.2em]">
-                SWING
+                {t.swing}
               </span>
               <span className="font-mono text-[#66FCF1] font-bold">
                 {Math.round(swing * 100)}%
@@ -183,7 +185,7 @@ export const TransportBar: React.FC<TransportBarProps> = ({
                 ) : (
                   <Volume2 className="w-3.5 h-3.5 text-[#66FCF1]" />
                 )}
-                MASTER
+                {t.master}
               </button>
               <span className="font-mono text-[#66FCF1] font-bold">
                 {Math.round(masterVolume * 100)}%
@@ -207,9 +209,9 @@ export const TransportBar: React.FC<TransportBarProps> = ({
         {/* Step Indicator & Audio Visualizer */}
         <div className="flex flex-col gap-2 w-full lg:w-64">
           <div className="flex justify-between items-center text-[10px] text-[#45A29E] font-bold uppercase tracking-[0.2em]">
-            <span>SCHRITT ANZEIGE</span>
+            <span>{t.stepDisplay}</span>
             <span className="font-mono text-[#66FCF1] font-bold">
-              STEP {currentStep + 1} / 16
+              {t.step} {currentStep + 1} / 16
             </span>
           </div>
 
@@ -220,3 +222,4 @@ export const TransportBar: React.FC<TransportBarProps> = ({
     </div>
   );
 };
+

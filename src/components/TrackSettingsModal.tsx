@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sliders, Volume2, X } from 'lucide-react';
 import { DrumTrack } from '../types';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface TrackSettingsModalProps {
   track: DrumTrack | null;
@@ -13,6 +14,8 @@ export const TrackSettingsModal: React.FC<TrackSettingsModalProps> = ({
   onClose,
   onUpdateTrack,
 }) => {
+  const { t } = useLanguage();
+
   if (!track) return null;
 
   const handleFillFour = () => {
@@ -45,7 +48,7 @@ export const TrackSettingsModal: React.FC<TrackSettingsModalProps> = ({
               className={`w-4 h-4 rounded-full ${track.color} shadow-md`}
             />
             <h3 className="text-lg font-black tracking-tight text-[#66FCF1] flex items-center gap-2 uppercase">
-              Spur-Einstellungen: {track.name}
+              {t.trackSettingsHeader}: {track.name}
             </h3>
           </div>
           <button
@@ -61,7 +64,7 @@ export const TrackSettingsModal: React.FC<TrackSettingsModalProps> = ({
           {/* Volume */}
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center text-xs">
-              <span className="font-bold text-[#45A29E] uppercase tracking-wider">Lautstärke</span>
+              <span className="font-bold text-[#45A29E] uppercase tracking-wider">{t.volume}</span>
               <span className="font-mono text-[#66FCF1] font-bold">
                 {Math.round(track.volume * 100)}%
               </span>
@@ -85,10 +88,10 @@ export const TrackSettingsModal: React.FC<TrackSettingsModalProps> = ({
           {/* Pan */}
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center text-xs">
-              <span className="font-bold text-[#45A29E] uppercase tracking-wider">Panorama (Pan)</span>
+              <span className="font-bold text-[#45A29E] uppercase tracking-wider">{t.pan}</span>
               <span className="font-mono text-[#66FCF1] font-bold">
                 {track.pan === 0
-                  ? 'Center (C)'
+                  ? t.panCenter
                   : track.pan < 0
                   ? `L ${Math.abs(Math.round(track.pan * 100))}%`
                   : `R ${Math.round(track.pan * 100)}%`}
@@ -113,10 +116,10 @@ export const TrackSettingsModal: React.FC<TrackSettingsModalProps> = ({
           {/* Pitch */}
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center text-xs">
-              <span className="font-bold text-[#45A29E] uppercase tracking-wider">Tonhöhe (Pitch)</span>
+              <span className="font-bold text-[#45A29E] uppercase tracking-wider">{t.pitch}</span>
               <span className="font-mono text-[#66FCF1] font-bold">
-                {track.pitch > 0 ? `+${track.pitch}` : track.pitch} Halbton
-                {Math.abs(track.pitch) !== 1 ? 'schritte' : ''}
+                {track.pitch > 0 ? `+${track.pitch}` : track.pitch}{' '}
+                {Math.abs(track.pitch) === 1 ? t.semitoneSingular : t.semitonePlural}
               </span>
             </div>
             <input
@@ -138,32 +141,32 @@ export const TrackSettingsModal: React.FC<TrackSettingsModalProps> = ({
           {/* Quick Step Filling Actions */}
           <div className="pt-4 border-t border-[#1F2833]">
             <span className="block text-[10px] font-bold text-[#45A29E] uppercase tracking-[0.2em] mb-3">
-              Schnellauswahl für Steps
+              {t.quickStepPresets}
             </span>
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={handleFillFour}
                 className="px-3 py-2 bg-[#1F2833] hover:bg-[#45A29E]/20 text-[#C5C6C7] hover:text-[#66FCF1] text-xs font-medium rounded border border-[#45A29E]/20 transition cursor-pointer"
               >
-                4-on-the-Floor (1,5,9,13)
+                {t.fillFourOnFloor}
               </button>
               <button
                 onClick={handleFillOffbeat}
                 className="px-3 py-2 bg-[#1F2833] hover:bg-[#45A29E]/20 text-[#C5C6C7] hover:text-[#66FCF1] text-xs font-medium rounded border border-[#45A29E]/20 transition cursor-pointer"
               >
-                Offbeats (3,7,11,15)
+                {t.fillOffbeat}
               </button>
               <button
                 onClick={handleFillAll}
                 className="px-3 py-2 bg-[#1F2833] hover:bg-[#45A29E]/20 text-[#C5C6C7] hover:text-[#66FCF1] text-xs font-medium rounded border border-[#45A29E]/20 transition cursor-pointer"
               >
-                Alle 16 füllen
+                {t.fillAll}
               </button>
               <button
                 onClick={handleClearTrack}
                 className="px-3 py-2 bg-[#1F2833] hover:bg-rose-950/40 text-rose-400 text-xs font-medium rounded border border-[#45A29E]/20 hover:border-rose-800 transition cursor-pointer"
               >
-                Spur leeren
+                {t.clearTrack}
               </button>
             </div>
           </div>
@@ -175,10 +178,11 @@ export const TrackSettingsModal: React.FC<TrackSettingsModalProps> = ({
             onClick={onClose}
             className="px-5 py-2 bg-transparent border-2 border-[#66FCF1] hover:bg-[#66FCF1] hover:text-[#0B0C10] text-[#66FCF1] font-bold text-xs uppercase tracking-wider rounded transition cursor-pointer"
           >
-            Fertig
+            {t.done}
           </button>
         </div>
       </div>
     </div>
   );
 };
+

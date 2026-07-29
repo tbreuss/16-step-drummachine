@@ -8,8 +8,10 @@ import { TransportBar } from './components/TransportBar';
 import { BEAT_PRESETS, DEFAULT_TRACKS } from './data/presets';
 import { BeatPreset, DrumKitId, DrumSoundId, DrumTrack } from './types';
 import { Music, Play, HelpCircle, Keyboard } from 'lucide-react';
+import { useLanguage } from './i18n/LanguageContext';
 
 export default function App() {
+  const { t } = useLanguage();
   const [isPlaying, setIsPlaying] = useState(false);
   const [bpm, setBpm] = useState(116);
   const [swing, setSwing] = useState(0.1);
@@ -281,10 +283,10 @@ export default function App() {
             </div>
             <div>
               <h4 className="text-xs font-bold text-[#66FCF1] uppercase tracking-wider">
-                Tastatur-Steuerung & Live Performance Pads
+                {t.keyboardHeader}
               </h4>
               <p className="text-xs text-[#C5C6C7] mt-0.5">
-                Drücke <kbd className="px-1.5 py-0.5 bg-[#0B0C10] text-[#66FCF1] font-mono text-[11px] rounded border border-[#66FCF1]/30">Leertaste</kbd> für Start/Stopp | Tasten <kbd className="px-1.5 py-0.5 bg-[#0B0C10] text-[#66FCF1] font-mono text-[11px] rounded border border-[#66FCF1]/30">Q W E R T Y U I O P</kbd> zum Live-Triggern der Samples!
+                {t.pressSpace} <kbd className="px-1.5 py-0.5 bg-[#0B0C10] text-[#66FCF1] font-mono text-[11px] rounded border border-[#66FCF1]/30">{t.spacebar}</kbd> {t.forStartStop} <kbd className="px-1.5 py-0.5 bg-[#0B0C10] text-[#66FCF1] font-mono text-[11px] rounded border border-[#66FCF1]/30">Q W E R T Y U I O P</kbd> {t.toTriggerLive}
               </p>
             </div>
           </div>
@@ -293,7 +295,7 @@ export default function App() {
             onClick={() => setShowKeymap(!showKeymap)}
             className="px-3.5 py-1.5 bg-[#0B0C10] hover:bg-[#45A29E]/20 text-[#C5C6C7] hover:text-[#66FCF1] text-xs font-mono font-bold rounded border border-[#1F2833] transition cursor-pointer"
           >
-            {showKeymap ? 'Tastenbelegung ausblenden' : 'Tastenbelegung anzeigen'}
+            {showKeymap ? t.hideKeymap : t.showKeymap}
           </button>
         </div>
 
@@ -330,7 +332,7 @@ export default function App() {
 
       {/* Footer */}
       <footer className="w-full bg-[#0B0C10] border-t border-[#1F2833] py-4 px-6 text-center text-[10px] tracking-[0.2em] uppercase text-[#45A29E] font-medium">
-        16-Step Drummachine Pro &bull; High Precision Web Audio Synthesis &bull; Audio WAV Export
+        {t.footerText}
       </footer>
 
       {/* Track Settings Modal */}

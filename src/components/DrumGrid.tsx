@@ -2,6 +2,7 @@ import React from 'react';
 import { Play, Settings2, VolumeX, Zap } from 'lucide-react';
 import { drumSynth } from '../audio/drumSynth';
 import { DrumKitId, DrumTrack } from '../types';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface DrumGridProps {
   tracks: DrumTrack[];
@@ -26,6 +27,7 @@ export const DrumGrid: React.FC<DrumGridProps> = ({
   isPlaying,
   currentKit,
 }) => {
+  const { t } = useLanguage();
   const isAnySoloed = tracks.some((t) => t.soloed);
 
   return (
@@ -35,7 +37,7 @@ export const DrumGrid: React.FC<DrumGridProps> = ({
         <div className="flex items-center gap-2 pb-2 border-b border-[#1F2833]">
           {/* Track Controls Info Spacer */}
           <div className="w-56 shrink-0 flex items-center justify-between px-2 text-[10px] font-bold text-[#45A29E] uppercase tracking-[0.2em]">
-            <span>INSTRUMENT</span>
+            <span>{t.instrument}</span>
             <div className="flex gap-4">
               <span>M</span>
               <span>S</span>
@@ -85,7 +87,7 @@ export const DrumGrid: React.FC<DrumGridProps> = ({
                   <button
                     onClick={() => drumSynth.playPreview(track, currentKit)}
                     className={`w-7 h-7 rounded ${track.color} hover:brightness-125 flex items-center justify-center shrink-0 shadow-sm transition active:scale-90 cursor-pointer`}
-                    title={`${track.name} probehören`}
+                    title={`${track.name} ${t.previewTitle}`}
                   >
                     <Play className="w-3.5 h-3.5 fill-current stroke-none ml-0.5" />
                   </button>
@@ -108,7 +110,7 @@ export const DrumGrid: React.FC<DrumGridProps> = ({
                         ? 'bg-rose-500 text-white shadow-[0_0_8px_rgba(244,63,94,0.6)]'
                         : 'bg-[#0B0C10] text-[#C5C6C7] hover:text-[#66FCF1] border border-[#1F2833]'
                     }`}
-                    title="Stummschalten (Mute)"
+                    title={t.muteTitle}
                   >
                     M
                   </button>
@@ -121,7 +123,7 @@ export const DrumGrid: React.FC<DrumGridProps> = ({
                         ? 'bg-[#66FCF1] text-[#0B0C10] shadow-[0_0_8px_rgba(102,252,241,0.6)]'
                         : 'bg-[#0B0C10] text-[#C5C6C7] hover:text-[#66FCF1] border border-[#1F2833]'
                     }`}
-                    title="Solo anhören"
+                    title={t.soloTitle}
                   >
                     S
                   </button>
@@ -130,7 +132,7 @@ export const DrumGrid: React.FC<DrumGridProps> = ({
                   <button
                     onClick={() => onOpenTrackSettings(track)}
                     className="w-6 h-6 rounded bg-[#0B0C10] text-[#C5C6C7] hover:text-[#66FCF1] border border-[#1F2833] transition cursor-pointer flex items-center justify-center"
-                    title="Spur-Einstellungen (Lautstärke, Pitch, Pan)"
+                    title={t.trackSettingsTitle}
                   >
                     <Settings2 className="w-3.5 h-3.5" />
                   </button>
@@ -169,10 +171,10 @@ export const DrumGrid: React.FC<DrumGridProps> = ({
                       title={`Step ${stepIdx + 1}: ${
                         active
                           ? isAccent
-                            ? 'Aktiv (Akzent/Laut)'
-                            : 'Aktiv (Normal)'
-                          : 'Inaktiv'
-                      } - Rechtsklick für Akzent`}
+                            ? t.stepTooltipActiveAccent
+                            : t.stepTooltipActiveNormal
+                          : t.stepTooltipInactive
+                      } - ${t.stepTooltipRightClick}`}
                     >
                       {active && isAccent && (
                         <div className="w-2 h-2 rounded-full bg-white shadow-sm shadow-white" />
@@ -191,3 +193,4 @@ export const DrumGrid: React.FC<DrumGridProps> = ({
     </div>
   );
 };
+

@@ -39,8 +39,7 @@ A professional, browser-based 16-step drum machine with an integrated Web Audio 
   - Global transport shortcut: `Spacebar` for Play / Pause.
 
 - **💾 Export & Project Storage**:
-  - **Studio WAV Export**: Direct Offline Audio Context rendering into 16-Bit / 44.1 kHz WAV audio files (1, 2, or 4 bar loop options).
-  - **JSON Project Management**: Save, open, or copy drum patterns directly via JSON format.
+  - **Studio Export (WAV & JSON)**: Access the unified **EXPORT** dialog to export 16-Bit / 44.1 kHz WAV audio loops (1, 2, or 4 bars) or export/import full beat patterns as JSON files.
 
 ---
 
@@ -111,6 +110,9 @@ This repository includes a pre-configured GitHub Actions workflow (`.github/work
 ## 📁 Directory Structure
 
 ```
+├── .github/
+│   └── workflows/
+│       └── deploy.yml     # GitHub Actions workflow for Pages deployment
 ├── public/                # Static assets
 ├── src/
 │   ├── audio/             # Web Audio API Synthesizer & WAV Recorder Engine
@@ -124,13 +126,15 @@ This repository includes a pre-configured GitHub Actions workflow (`.github/work
 │   │   └── ExportModal.tsx # WAV & JSON Export dialog
 │   ├── data/              # Preset patterns & kit configurations
 │   │   └── presets.ts
-│   ├── types/             # TypeScript interfaces & types
-│   │   └── index.ts
+│   ├── utils/             # Helper utilities (audio buffer to WAV)
 │   ├── App.tsx            # Main application component
 │   ├── index.css          # Tailwind CSS styles
-│   └── main.tsx           # React entry point
+│   ├── main.tsx           # React entry point
+│   └── types.ts           # TypeScript interfaces & types
 ├── package.json
+├── package-lock.json
 ├── tsconfig.json
+├── vite.config.ts
 └── README.md
 ```
 

@@ -21,6 +21,8 @@ interface ExportModalProps {
   bpm: number;
   swing: number;
   currentKit: DrumKitId;
+  beatName: string;
+  onBeatNameChange: (name: string) => void;
 }
 
 export const ExportModal: React.FC<ExportModalProps> = ({
@@ -30,6 +32,8 @@ export const ExportModal: React.FC<ExportModalProps> = ({
   bpm,
   swing,
   currentKit,
+  beatName,
+  onBeatNameChange,
 }) => {
   const [activeTab, setActiveTab] = useState<'wav' | 'json'>('wav');
   const [bars, setBars] = useState<number>(2); // Default 2 bars
@@ -37,6 +41,11 @@ export const ExportModal: React.FC<ExportModalProps> = ({
   const [copiedJson, setCopiedJson] = useState<boolean>(false);
 
   if (!isOpen) return null;
+
+  const getSanitizedFileName = (ext: string) => {
+    const cleanName = (beatName.trim() || 'Mein_Beat').replace(/[^a-zA-Z0-9_\-]/g, '_');
+    return `${cleanName}_${bpm}BPM.${ext}`;
+  };
 
   const handleExportWav = async () => {
     try {
@@ -49,8 +58,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
         bars
       );
       const wavBlob = audioBufferToWav(audioBuffer);
-      const filename = `Beat_${currentKit}_${bpm}BPM_${bars}Bars.wav`;
-      downloadFile(wavBlob, filename);
+      downloadFile(wavBlob, getSanitizedFileName(`${bars}Bars.wav`));
     } catch (err) {
       console.error('Failed to render WAV beat:', err);
     } finally {
@@ -70,7 +78,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
     return JSON.stringify(
       {
         version: '1.0',
-        name: `Mein Beat (${bpm} BPM)`,
+        name: beatName.trim() || 'Mein Beat',
         bpm,
         swing,
         kit: currentKit,
@@ -91,7 +99,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
   const handleDownloadJSON = () => {
     const jsonStr = getExportDataJSON();
     const blob = new Blob([jsonStr], { type: 'application/json' });
-    downloadFile(blob, `Beat_Pattern_${bpm}BPM.json`);
+    downloadFile(blob, getSanitizedFileName('json'));
   };
 
   return (
@@ -150,7 +158,17 @@ export const ExportModal: React.FC<ExportModalProps> = ({
           {activeTab === 'wav' ? (
             <div className="flex flex-col gap-6">
               <div className="bg-[#1F2833] rounded p-4 border border-[#45A29E]/30 flex flex-col gap-3">
-                <div className="flex justify-between items-center text-xs">
+                <div className="flex flex-col gap-1 text-xs">
+                  <label className="text-[#45A29E] font-medium text-[10px] uppercase tracking-wider">Beat Name:</label>
+                  <input
+                    type="text"
+                    value={beatName}
+                    onChange={(e) => onBeatNameChange(e.target.value)}
+                    placeholder="Beat-Name eingeben..."
+                    className="bg-[#0B0C10] text-[#66FCF1] font-bold text-xs py-1.5 px-2.5 rounded border border-[#1F2833] focus:outline-none focus:border-[#66FCF1] w-full"
+                  />
+                </div>
+                <div className="flex justify-between items-center text-xs pt-1 border-t border-[#0B0C10]">
                   <span className="text-[#45A29E] font-medium">Tempo:</span>
                   <span className="font-mono text-[#66FCF1] font-bold">{bpm} BPM</span>
                 </div>

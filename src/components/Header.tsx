@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import {
   Download,
+  Edit3,
   FolderOpen,
   Music,
   PlusCircle,
@@ -8,12 +9,15 @@ import {
   Save,
   Shuffle,
   Sparkles,
+  Tag,
   Volume2,
 } from 'lucide-react';
 import { BEAT_PRESETS, DRUM_KITS } from '../data/presets';
 import { BeatPreset, DrumKitId } from '../types';
 
 interface HeaderProps {
+  beatName: string;
+  onBeatNameChange: (name: string) => void;
   currentKit: DrumKitId;
   onSelectKit: (kit: DrumKitId) => void;
   onLoadPreset: (preset: BeatPreset) => void;
@@ -25,6 +29,8 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
+  beatName,
+  onBeatNameChange,
   currentKit,
   onSelectKit,
   onLoadPreset,
@@ -74,8 +80,21 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Controls Bar: Kits, Presets & Actions */}
+        {/* Controls Bar: Beat Name, Kits, Presets & Actions */}
         <div className="flex flex-wrap items-center justify-center md:justify-end gap-2.5 w-full md:w-auto">
+          {/* Beat Name Input */}
+          <div className="flex items-center gap-1.5 bg-[#1F2833] p-1 rounded border border-[#66FCF1]/40 shadow-[0_0_8px_rgba(102,252,241,0.15)]">
+            <Tag className="w-4 h-4 text-[#66FCF1] ml-1.5 shrink-0" />
+            <input
+              type="text"
+              value={beatName}
+              onChange={(e) => onBeatNameChange(e.target.value)}
+              placeholder="Beat Name eingeben..."
+              title="Beat Name bearbeiten"
+              className="bg-[#0B0C10] text-[#66FCF1] font-bold text-xs py-1.5 px-2.5 rounded border border-[#1F2833] focus:outline-none focus:border-[#66FCF1] w-36 sm:w-44 truncate transition-all placeholder:text-[#45A29E]/50"
+            />
+          </div>
+
           {/* Kit Selector */}
           <div className="flex items-center gap-1.5 bg-[#1F2833] p-1 rounded border border-[#45A29E]/30">
             <Volume2 className="w-4 h-4 text-[#45A29E] ml-1.5 hidden sm:block" />

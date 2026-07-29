@@ -17,6 +17,7 @@ export default function App() {
   const [currentKit, setCurrentKit] = useState<DrumKitId>('classic808');
   const [tracks, setTracks] = useState<DrumTrack[]>(DEFAULT_TRACKS);
   const [currentStep, setCurrentStep] = useState(0);
+  const [beatName, setBeatName] = useState('Mein Beat 01');
 
   // Modals
   const [settingsTrack, setSettingsTrack] = useState<DrumTrack | null>(null);
@@ -112,6 +113,7 @@ export default function App() {
     setBpm(preset.bpm);
     setSwing(preset.swing);
     setCurrentKit(preset.kit);
+    setBeatName(preset.name);
 
     setTracks((prev) =>
       prev.map((track) => {
@@ -127,6 +129,7 @@ export default function App() {
 
   // Clear Pattern
   const handleClearPattern = () => {
+    setBeatName('Neuer Beat');
     setTracks((prev) =>
       prev.map((t) => ({
         ...t,
@@ -161,6 +164,7 @@ export default function App() {
   const handleImportJSON = (jsonString: string) => {
     try {
       const parsed = JSON.parse(jsonString);
+      if (parsed.name) setBeatName(parsed.name);
       if (parsed.bpm) setBpm(parsed.bpm);
       if (parsed.swing !== undefined) setSwing(parsed.swing);
       if (parsed.kit) setCurrentKit(parsed.kit);
@@ -230,6 +234,8 @@ export default function App() {
     <div className="min-h-screen bg-[#0B0C10] text-[#C5C6C7] flex flex-col font-sans selection:bg-[#66FCF1] selection:text-[#0B0C10]">
       {/* Header */}
       <Header
+        beatName={beatName}
+        onBeatNameChange={setBeatName}
         currentKit={currentKit}
         onSelectKit={setCurrentKit}
         onLoadPreset={handleLoadPreset}
@@ -342,6 +348,8 @@ export default function App() {
         bpm={bpm}
         swing={swing}
         currentKit={currentKit}
+        beatName={beatName}
+        onBeatNameChange={setBeatName}
       />
     </div>
   );

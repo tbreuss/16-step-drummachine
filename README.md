@@ -25,6 +25,7 @@ A professional, browser-based 16-step drum machine with an integrated Web Audio 
     - **Crash Cymbal** (Metallic frequency cluster & ring modulation)
 
 - **🎧 Live Track & Sound Controls**:
+  - **Custom Beat Naming**: Give your custom beats unique titles directly in the header or export dialog.
   - **Instant Real-Time Mute & Solo**: Track mute and solo toggles apply immediately during live playback without restarting loops.
   - **Per-Track Adjustments**: Volume, stereo panning, and pitch transposing (in semitones).
   - **Master Controls**: Tempo (40–240 BPM, Tap Tempo), Swing timing adjustment (0–50%), and Master volume output.

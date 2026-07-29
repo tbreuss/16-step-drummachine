@@ -82,6 +82,22 @@ A professional, browser-based 16-step drum machine with an integrated Web Audio 
 
 ---
 
+## 🌐 GitHub Pages Deployment
+
+This repository includes a pre-configured GitHub Actions workflow (`.github/workflows/deploy.yml`) that automatically builds and deploys the application to **GitHub Pages** whenever you push to the `main` branch.
+
+### Enabling GitHub Pages on GitHub:
+
+1. Push your code to your GitHub repository on the `main` branch.
+2. Open your repository on **GitHub.com** and go to **Settings** > **Pages**.
+3. Under **Build and deployment** > **Source**, select **GitHub Actions**.
+4. Push a commit or trigger the **Deploy to GitHub Pages** workflow manually under the **Actions** tab.
+5. Your app will be live at `https://<your-username>.github.io/<your-repository-name>/`.
+
+> **Note**: `vite.config.ts` is configured with `base: './'` to ensure all relative asset paths load correctly on GitHub Pages subpaths.
+
+---
+
 ## 📜 Available Scripts
 
 - `npm run dev`: Starts the Vite development server on port 3000.

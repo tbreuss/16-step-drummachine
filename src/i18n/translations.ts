@@ -112,6 +112,10 @@ export const translations = {
         name: 'Studio Punch',
         desc: 'Kompakte, knackige Drums mit natürlichem Transienten-Verhalten.',
       },
+      analog_warmth: {
+        name: 'CR-78 Analog Warmth',
+        desc: 'Warmer, organischer Vintage-Analogsound mit sattem Sub-Bass und weichen Transienten.',
+      },
     },
     presets: {
       hiphop808: {
@@ -137,6 +141,10 @@ export const translations = {
       latinpercussion: {
         name: 'Latin Bossa & Percussion',
         desc: 'Synkopierter lateinamerikanischer Rhythmus mit Rimshot, Shaker und Cowbell.',
+      },
+      analog_groove: {
+        name: 'Analog Vintage Warmth',
+        desc: 'Warmer Vintage-Rhythmus mit charakterstarkem Rimshot, sanftem Sub-Kick und organischem Percussion-Swing.',
       },
     },
   },
@@ -251,6 +259,10 @@ export const translations = {
         name: 'Studio Punch',
         desc: 'Tight, punchy acoustic drums with natural transient response.',
       },
+      analog_warmth: {
+        name: 'CR-78 Analog Warmth',
+        desc: 'Warm, organic vintage analog sound with rich sub-bass and smooth transients.',
+      },
     },
     presets: {
       hiphop808: {
@@ -276,6 +288,10 @@ export const translations = {
       latinpercussion: {
         name: 'Latin Bossa & Percussion',
         desc: 'Syncopated Latin rhythm with rimshot, shaker, and cowbell.',
+      },
+      analog_groove: {
+        name: 'Analog Vintage Warmth',
+        desc: 'Warm vintage rhythm with expressive rimshot, soft sub-kick, and organic percussion swing.',
       },
     },
   },

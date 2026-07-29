@@ -80,7 +80,16 @@ class DrumSynthEngine {
     }
 
     // Kit pitch variations
-    const kitPitchFactor = kit === 'synthwave' ? 1.2 : kit === 'dance909' ? 1.05 : kit === 'acoustic' ? 0.95 : 1.0;
+    const kitPitchFactor =
+      kit === 'synthwave'
+        ? 1.2
+        : kit === 'dance909'
+        ? 1.05
+        : kit === 'acoustic'
+        ? 0.95
+        : kit === 'analog_warmth'
+        ? 0.92
+        : 1.0;
 
     switch (soundId) {
       case 'kick': {
@@ -103,6 +112,10 @@ class DrumSynthEngine {
           startFreq = 130 * pitchRatio;
           endFreq = 40 * pitchRatio;
           decay = 0.22;
+        } else if (kit === 'analog_warmth') {
+          startFreq = 140 * pitchRatio;
+          endFreq = 34 * pitchRatio;
+          decay = 0.4;
         }
 
         osc.type = 'sine';
@@ -138,7 +151,7 @@ class DrumSynthEngine {
         const osc = ctx.createOscillator();
         const oscGain = ctx.createGain();
 
-        const baseFreq = (kit === 'dance909' ? 200 : kit === 'synthwave' ? 240 : 180) * pitchRatio;
+        const baseFreq = (kit === 'dance909' ? 200 : kit === 'synthwave' ? 240 : kit === 'analog_warmth' ? 165 : 180) * pitchRatio;
         osc.type = kit === 'synthwave' ? 'sawtooth' : 'triangle';
         osc.frequency.setValueAtTime(baseFreq, soundTime);
         osc.frequency.exponentialRampToValueAtTime(80 * pitchRatio, soundTime + 0.12);
@@ -157,8 +170,11 @@ class DrumSynthEngine {
         noise.buffer = noiseBuffer;
 
         const noiseFilter = ctx.createBiquadFilter();
-        noiseFilter.type = 'highpass';
-        noiseFilter.frequency.setValueAtTime((kit === 'dance909' ? 1800 : 1200) * pitchRatio, soundTime);
+        noiseFilter.type = kit === 'analog_warmth' ? 'bandpass' : 'highpass';
+        noiseFilter.frequency.setValueAtTime((kit === 'dance909' ? 1800 : kit === 'analog_warmth' ? 1100 : 1200) * pitchRatio, soundTime);
+        if (kit === 'analog_warmth') {
+          noiseFilter.Q.value = 1.3;
+        }
 
         const noiseGain = ctx.createGain();
         const noiseDecay = kit === 'acoustic' ? 0.14 : 0.22;
@@ -180,11 +196,14 @@ class DrumSynthEngine {
         noise.buffer = noiseBuffer;
 
         const filter = ctx.createBiquadFilter();
-        filter.type = 'highpass';
-        filter.frequency.setValueAtTime((kit === 'dance909' ? 8500 : 7000) * pitchRatio, soundTime);
+        filter.type = kit === 'analog_warmth' ? 'bandpass' : 'highpass';
+        filter.frequency.setValueAtTime((kit === 'dance909' ? 8500 : kit === 'analog_warmth' ? 5800 : 7000) * pitchRatio, soundTime);
+        if (kit === 'analog_warmth') {
+          filter.Q.value = 2.0;
+        }
 
         const gain = ctx.createGain();
-        const decay = kit === 'synthwave' ? 0.08 : 0.05;
+        const decay = kit === 'synthwave' ? 0.08 : kit === 'analog_warmth' ? 0.045 : 0.05;
         gain.gain.setValueAtTime(0.6, soundTime);
         gain.gain.exponentialRampToValueAtTime(0.001, soundTime + decay);
 
@@ -203,11 +222,14 @@ class DrumSynthEngine {
         noise.buffer = noiseBuffer;
 
         const filter = ctx.createBiquadFilter();
-        filter.type = 'highpass';
-        filter.frequency.setValueAtTime((kit === 'dance909' ? 8000 : 6500) * pitchRatio, soundTime);
+        filter.type = kit === 'analog_warmth' ? 'bandpass' : 'highpass';
+        filter.frequency.setValueAtTime((kit === 'dance909' ? 8000 : kit === 'analog_warmth' ? 5200 : 6500) * pitchRatio, soundTime);
+        if (kit === 'analog_warmth') {
+          filter.Q.value = 1.5;
+        }
 
         const gain = ctx.createGain();
-        const decay = kit === 'acoustic' ? 0.28 : 0.4;
+        const decay = kit === 'acoustic' ? 0.28 : kit === 'analog_warmth' ? 0.35 : 0.4;
         gain.gain.setValueAtTime(0.7, soundTime);
         gain.gain.exponentialRampToValueAtTime(0.001, soundTime + decay);
 

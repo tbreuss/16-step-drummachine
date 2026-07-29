@@ -12,7 +12,7 @@ export type DrumSoundId =
   | 'shaker'
   | 'cymbal';
 
-export type DrumKitId = 'classic808' | 'dance909' | 'synthwave' | 'acoustic';
+export type DrumKitId = 'classic808' | 'dance909' | 'synthwave' | 'acoustic' | 'analog_warmth';
 
 export interface DrumKitInfo {
   id: DrumKitId;

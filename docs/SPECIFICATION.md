@@ -72,8 +72,8 @@ Every sound synthesis routine must respect:
 
 ### 3.5 Presets & Drum Kit Engine
 - **Drum Kits**:
-  - Classic 808, Vintage 909, Synthwave, Acoustic Rock, Electro Funk, Hip-Hop Boom Bap, Trap 808, Industrial Techno, Lo-Fi Chill, Cyberpunk 2077.
-  - Selecting a kit dynamically changes the sound synthesis parameters (pitch, decay, filter cutoffs, noise color).
+  - Classic 808, Vintage 909, Synthwave, Studio Punch, CR-78 Analog Warmth.
+  - Selecting a kit dynamically changes the sound synthesis parameters (pitch, decay, filter cutoffs, noise color, oscillator types, and resonance curves).
 - **Beat Presets**:
   - Pre-programmed patterns (House, Boom Bap, Trap, Techno, Funk, Rock, Reggaeton, Synthwave, Lo-Fi, Drum & Bass).
   - Loading a preset sets the BPM, kit selection, and populates all track steps and velocities.

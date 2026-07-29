@@ -21,6 +21,11 @@ export const DRUM_KITS: DrumKitInfo[] = [
     name: 'Studio Punch',
     description: 'Kompakte, knackige Drums mit natürlichem Transienten-Verhalten.',
   },
+  {
+    id: 'analog_warmth',
+    name: 'CR-78 Analog Warmth',
+    description: 'Warmer, organischer Vintage-Analogsound mit sattem Sub-Bass und weichen Transienten.',
+  },
 ];
 
 export const DEFAULT_TRACKS: DrumTrack[] = [
@@ -313,6 +318,29 @@ export const BEAT_PRESETS: BeatPreset[] = [
       rimshot: [true, false, false, true, false, false, true, false, false, true, false, false, true, false, true, false],
       shaker: [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
       cymbal: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    },
+  },
+  {
+    id: 'analog_groove',
+    name: 'Analog Vintage Warmth',
+    category: 'Experimental',
+    bpm: 110,
+    swing: 0.12,
+    kit: 'analog_warmth',
+    description: 'Warmer Vintage-Rhythmus mit charakterstarkem Rimshot, sanftem Sub-Kick und organischem Percussion-Swing.',
+    tracks: {
+      kick: [true, false, false, false, true, false, false, true, false, false, true, false, true, false, false, false],
+      snare: [false, false, false, false, true, false, false, false, false, false, false, false, true, false, false, false],
+      clap: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      hihat_closed: [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+      hihat_open: [false, false, false, false, false, false, true, false, false, false, false, false, false, false, true, false],
+      tom_low: [false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false],
+      tom_mid: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      tom_high: [false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false],
+      cowbell: [false, false, true, false, false, true, false, false, false, false, true, false, false, true, false, false],
+      rimshot: [true, false, false, true, false, false, true, false, true, false, false, true, false, false, true, false],
+      shaker: [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true],
+      cymbal: [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
     },
   },
 ];
